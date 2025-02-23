@@ -42,14 +42,16 @@ duplicateImages(document.querySelector(".track5"), true, 10000);
 
 
 
+
 // Optimized GSAP Parallax Function for Smooth Infinite Looping
 function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
-    const originalImages = track.querySelectorAll("img").length / (numImages + 1);
+    const originalImages = track.querySelectorAll("img").length / (numImages + 1) || 1; // Ensure valid count
     const totalImageWidth = imageWidth + (applyGap ? gapSize : 0);
     const totalWidth = originalImages * totalImageWidth * numImages; // Proper loop distance
 
-    // 🔥 Scale duration relative to totalWidth so it feels consistent
-    const scaledDuration = (totalWidth / imageWidth) * (baseSpeed / 10);
+    // 🔥 Normalize speed so it scales properly across tracks
+    const speedFactor = Math.max(baseSpeed / 10, 0.1); // Prevents extreme durations
+    const scaledDuration = (totalWidth / (speedFactor * 10)); // Balanced duration
 
     gsap.to(track, {
         x: `-${totalWidth}px`,
@@ -60,6 +62,8 @@ function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
             gsap.set(track, { x: 0, left: "auto" });
         }
     });
+
+    console.log(`Track: ${track.className}, Base Speed: ${baseSpeed}, Duration: ${scaledDuration}, Total Width: ${totalWidth}`);
 }
 
 
@@ -70,9 +74,10 @@ function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
 
 
 
+
 // Start animations
-startParallaxScroll(document.querySelector(".parallax-track.track1"), 70);
-startParallaxScroll(document.querySelector(".parallax-track.track2"), 50);
-startParallaxScroll(document.querySelector(".parallax-track.track3"), 30);
-startParallaxScroll(document.querySelector(".parallax-track.track4"), 15);
-startParallaxScroll(document.querySelector(".parallax-track.track5"), 5, true, 10000);
+startParallaxScroll(document.querySelector(".parallax-track.track1"), 100, false, 0);
+startParallaxScroll(document.querySelector(".parallax-track.track2"), 5, false, 0);
+startParallaxScroll(document.querySelector(".parallax-track.track3"), 250, false, 0);
+startParallaxScroll(document.querySelector(".parallax-track.track4"), 800, false, 0);
+startParallaxScroll(document.querySelector(".parallax-track.track5"), 3500, true, 10000);
