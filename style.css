@@ -24,14 +24,20 @@ body {
   position: absolute;
   top: 0;
   left: 0;
+  will-change: transform;
+    transform: translate3d(0, 0, 0); /* Forces GPU usage */
+    backface-visibility: hidden;
 }
+
+
 
 /* Layer depth settings */
 .track1 { z-index: 1;}
 .track2 { z-index: 2; }
 .track3 { z-index: 3; }
 .track4 { z-index: 4;}
-.track5 { z-index: 5;}
+.track5 { z-index: 5; }
+
 
 /* Ensure images cover the screen */
 .parallax-track img {
