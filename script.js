@@ -1,4 +1,4 @@
-const track = document.querySelector(".parallax-track2");
+const track = document.querySelector(".parallax-track");
 const layer2 = document.querySelector("#layer2");
 const imageURL = layer2.src;
 
