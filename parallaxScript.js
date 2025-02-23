@@ -10,29 +10,23 @@ gsap.defaults({ force3D: true });
 
 function duplicateImages(track, applyGap = false, gapSize = 200) {
     const originalImages = Array.from(track.querySelectorAll("img"));
-    const totalImagesNeeded = Math.ceil(window.innerWidth / imageWidth) + numImages; // Ensure full coverage
-    const fragment = document.createDocumentFragment(); // ✅ Prevents multiple reflows
+    const totalImages = originalImages.length * (numImages + 1);
 
     // Enable flexbox gap if needed
     if (applyGap) {
-        track.style.display = "flex";
-        track.style.gap = `${gapSize}px`;
+        track.style.display = "flex"; // Ensure flexbox
+        track.style.gap = `${gapSize}px`; // Apply gap dynamically
     }
 
-    // ✅ Set width only once, ensuring no extra reflows
-    track.style.width = `${totalImagesNeeded * (imageWidth + (applyGap ? gapSize : 0))}px`;
+    track.style.width = `${totalImages * (imageWidth + (applyGap ? gapSize : 0))}px`;
 
-    // ✅ Clone images efficiently using documentFragment
     originalImages.forEach(img => {
-        for (let i = 0; i < totalImagesNeeded; i++) {
+        for (let i = 0; i < numImages; i++) {
             let clonedImg = img.cloneNode(true);
-            fragment.appendChild(clonedImg); // ✅ Prevents individual DOM reflows
+            track.appendChild(clonedImg);
         }
     });
-
-    track.appendChild(fragment); // ✅ Batch insert all images at once (FAST)
 }
-
 
 
 
