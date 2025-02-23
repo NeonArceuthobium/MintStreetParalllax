@@ -23,12 +23,25 @@ function duplicateImages(track, imageSrc) {
     }
 }
 
+// Function to add spacing between images in Track 5
+function addGapToImages(track, gapSize = 300) {
+  const images = track.querySelectorAll("img");
+  images.forEach((img, index) => {
+      if (index !== images.length - 1) { // Avoid adding a gap to the last image
+          img.style.marginRight = `${gapSize}px`;
+      }
+  });
+}
+
 // Duplicate images for all 5 layers
 duplicateImages(track1, layer1.src);
 duplicateImages(track2, layer2.src);
 duplicateImages(track3, layer3.src);
 duplicateImages(track4, layer4.src);
 duplicateImages(track5, layer5.src);
+
+// Add spacing ONLY to Track 5 images
+addGapToImages(track5, 400);
 
 // Parallax function for smooth looping
 function startParallaxScroll(track, speed, imageWidth = 1920) {
@@ -50,4 +63,4 @@ startParallaxScroll(track1, 30); // Farthest background (slowest)
 startParallaxScroll(track2, 25);
 startParallaxScroll(track3, 20);
 startParallaxScroll(track4, 15);
-startParallaxScroll(track5, 10); // Foreground (fastest)
+startParallaxScroll(track5, 10, 1920, 400); // Track 5 moves with spacing
