@@ -1,8 +1,14 @@
 const track1 = document.querySelector(".track1");
 const track2 = document.querySelector(".track2");
+const track3 = document.querySelector(".track3");
+const track4 = document.querySelector(".track4");
+const track5 = document.querySelector(".track5");
 
-const layer1 = document.querySelector("#layer1");
-const layer2 = document.querySelector("#layer2");
+const layer1 = document.querySelector(".track1 img");
+const layer2 = document.querySelector(".track2 img");
+const layer3 = document.querySelector(".track3 img");
+const layer4 = document.querySelector(".track4 img");
+const layer5 = document.querySelector(".track5 img");
 
 const numImages = 3; // Number of images needed for seamless loop
 
@@ -17,9 +23,12 @@ function duplicateImages(track, imageSrc) {
     }
 }
 
-// Duplicate images for both tracks
+// Duplicate images for all 5 layers
 duplicateImages(track1, layer1.src);
 duplicateImages(track2, layer2.src);
+duplicateImages(track3, layer3.src);
+duplicateImages(track4, layer4.src);
+duplicateImages(track5, layer5.src);
 
 // Parallax function for smooth looping
 function startParallaxScroll(track, speed, imageWidth = 1920) {
@@ -36,6 +45,9 @@ function startParallaxScroll(track, speed, imageWidth = 1920) {
   });
 }
 
-// Start both parallax layers with different speeds
-startParallaxScroll(track1, 20); // Background moves slower
-startParallaxScroll(track2, 1); // Foreground moves faster
+// Start all 5 parallax layers with different speeds for depth effect
+startParallaxScroll(track1, 30); // Farthest background (slowest)
+startParallaxScroll(track2, 25);
+startParallaxScroll(track3, 20);
+startParallaxScroll(track4, 15);
+startParallaxScroll(track5, 10); // Foreground (fastest)

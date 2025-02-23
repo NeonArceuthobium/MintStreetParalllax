@@ -5,44 +5,38 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* background-color: black; */
+  background-color: black;
 }
 
 .parallax-container {
   display: flex;
   white-space: nowrap;
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
   overflow: hidden;
   position: relative;
 }
 
-/* Base styling for both tracks */
+/* Base styling for all layers */
 .parallax-track {
   display: flex;
-  width: 400vw; /* Ensure enough width for looping */
+  width: 400vw; /* Large width for looping */
   position: absolute;
   top: 0;
   left: 0;
 }
 
-/* Background layer (slower) */
-.track1 {
-  z-index: 1; /* Ensures it stays behind */
-  opacity: 0.8; /* Optional fade effect */
-}
+/* Layer depth settings */
+.track1 { z-index: 1;}
+.track2 { z-index: 2; }
+.track3 { z-index: 3; }
+.track4 { z-index: 4;}
+.track5 { z-index: 5;}
 
-/* Foreground layer (faster) */
-.track2 {
-  z-index: 2; /* Ensures it appears above */
-  opacity: 0.8;
-  mix-blend-mode: lighten; /* Optional blending effect */
-}
-
-/* Ensure images cover the screen and fit properly */
+/* Ensure images cover the screen */
 .parallax-track img {
-  width: 100vw; /* Always match the screen width */
-  height: 100vh; /* Always match the screen height */
-  object-fit: cover; /* Ensure the image covers the screen while keeping its aspect ratio */
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
   flex-shrink: 0;
 }
