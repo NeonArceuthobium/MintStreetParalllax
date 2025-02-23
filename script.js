@@ -1,6 +1,7 @@
 const track = document.querySelector(".parallax-track");
+const layer2 = document.querySelector("#layer2");
+const imageURL = layer2.src;
 
-const imageURL = "https://wallpapers.com/images/hd/1920x1080-aesthetic-glrfk0ntspz3tvxg.jpg";
 const numImages = 3; // Number of images needed for seamless loop
 
 
