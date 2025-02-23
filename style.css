@@ -5,7 +5,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: black;
+  /* background-color: black; */
 }
 
 .parallax-container {
@@ -17,11 +17,29 @@ body {
   position: relative;
 }
 
+/* Base styling for both tracks */
 .parallax-track {
   display: flex;
   width: 400vw; /* Ensure enough width for looping */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
+/* Background layer (slower) */
+.track1 {
+  z-index: 1; /* Ensures it stays behind */
+  opacity: 0.8; /* Optional fade effect */
+}
+
+/* Foreground layer (faster) */
+.track2 {
+  z-index: 2; /* Ensures it appears above */
+  opacity: 0.8;
+  mix-blend-mode: lighten; /* Optional blending effect */
+}
+
+/* Ensure images cover the screen and fit properly */
 .parallax-track img {
   width: 100vw; /* Always match the screen width */
   height: 100vh; /* Always match the screen height */
