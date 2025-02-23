@@ -75,4 +75,4 @@ startParallaxScroll(document.querySelector(".parallax-track.track1"), 70);
 startParallaxScroll(document.querySelector(".parallax-track.track2"), 50);
 startParallaxScroll(document.querySelector(".parallax-track.track3"), 30);
 startParallaxScroll(document.querySelector(".parallax-track.track4"), 15);
-startParallaxScroll(document.querySelector(".parallax-track.track5"), 25, true, 10000);
+startParallaxScroll(document.querySelector(".parallax-track.track5"), 5, true, 10000);
