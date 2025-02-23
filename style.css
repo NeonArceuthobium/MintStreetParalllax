@@ -1,0 +1,11 @@
+/* diagnostic styling; comment this out when submitting*/
+
+* {
+    outline: 2px dotted white
+}
+
+body {  
+    background: magenta;
+    color: white;
+    }
+    
