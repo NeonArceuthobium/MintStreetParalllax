@@ -1,27 +1,30 @@
 body {
-    margin: 0;
-    overflow: hidden;
-    height: 100vh;
-    background-color: black;
-  }
-  
-  .parallax-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .parallax-track {
-    position: absolute;
-    display: flex;
-    width: 400vw; /* Ensure looping */
-  }
-  
-  .parallax-track img {
-    width: 100vw; /* Matches screen width */
-    height: 100vh; /* Matches screen height */
-    object-fit: cover; /* Ensures the image scales properly */
-    flex-shrink: 0;
-  }
-  
+  margin: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.parallax-container {
+  display: flex;
+  white-space: nowrap;
+  width: 100vw; /* Full width of the viewport */
+  height: 100vh; /* Full height of the viewport */
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-track {
+  display: flex;
+  width: 400vw; /* Ensure enough width for looping */
+}
+
+.parallax-track img {
+  width: 100vw; /* Always match the screen width */
+  height: 100vh; /* Always match the screen height */
+  object-fit: cover; /* Ensure the image covers the screen while keeping its aspect ratio */
+  flex-shrink: 0;
+}
