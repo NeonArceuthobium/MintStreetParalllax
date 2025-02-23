@@ -59,9 +59,9 @@ function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
         duration: scaledDuration, // Adjusted dynamically based on width
         ease: "none",
         repeat: -1,
-        onRepeat: function () {
-            gsap.set(track, { x: 0, left: "auto" });
-        }
+        // onRepeat: function () {
+        //     gsap.set(track, { x: 0, left: "auto" });
+        // }
     });
 
     console.log(`Track: ${track.className}, Base Speed: ${baseSpeed}, Duration: ${scaledDuration}, Total Width: ${totalWidth}`);
