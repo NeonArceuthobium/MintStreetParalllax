@@ -44,15 +44,18 @@ duplicateImages(track5, layer5.src);
 addGapToImages(track5, 400);
 
 // Parallax function for smooth looping
-function startParallaxScroll(track, speed, imageWidth = 1920) {
+// ✅ Updated function to handle optional `gap` parameter
+function startParallaxScroll(track, speed, imageWidth = 1920, gap = 0) {
   gsap.to(track, {
-    x: `-=${imageWidth}`, // Move left by one image width
+    x: `-=${imageWidth + gap}`, // Move left by one image width + gap if applicable
     duration: speed,
     ease: "none",
     repeat: -1,
+    force3D: true, // Forces GPU acceleration
+    smoothChildTiming: true, // Prevents laggy frame jumps
     modifiers: {
       x: function (x) {
-        return (parseFloat(x) % (imageWidth * numImages)) + "px"; // Seamless loop
+        return (parseFloat(x) % ((imageWidth + gap) * numImages)) + "px"; // Ensures seamless loop
       }
     }
   });
