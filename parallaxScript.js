@@ -55,7 +55,7 @@ function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
     const scaledDuration = (totalWidth / (speedFactor * 10)); // Balanced duration
 
     gsap.to(track, {
-        x: `-${totalWidth}px`,
+        xPercent: (-totalWidth / track.offsetWidth) * 100, // Convert pixels to percentage
         duration: scaledDuration, // Adjusted dynamically based on width
         ease: "none",
         repeat: -1,
