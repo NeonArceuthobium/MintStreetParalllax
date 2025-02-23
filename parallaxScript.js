@@ -2,7 +2,8 @@ const tracks = document.querySelectorAll(".parallax-track"); // Select all paral
 const numImages = 3; // Number of extra images for looping
 const imageWidth = 1920; // Adjust based on your actual image size
 
-gsap.defaults({ force3D: true, smoothChildTiming: true });
+gsap.defaults({ force3D: true });
+
 
 
 
