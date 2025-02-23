@@ -43,18 +43,21 @@ duplicateImages(document.querySelector(".track5"), true, 10000);
 
 
 // Optimized GSAP Parallax Function for Smooth Infinite Looping
-function startParallaxScroll(track, speed, applyGap = false, gapSize = 0) {
-    const originalImages = track.querySelectorAll("img").length / (numImages + 1); // Get original image count
-    const totalImageWidth = imageWidth + (applyGap ? gapSize : 0); // Adjust for gaps
+function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
+    const originalImages = track.querySelectorAll("img").length / (numImages + 1);
+    const totalImageWidth = imageWidth + (applyGap ? gapSize : 0);
     const totalWidth = originalImages * totalImageWidth * numImages; // Proper loop distance
 
+    // 🔥 Scale duration relative to totalWidth so it feels consistent
+    const scaledDuration = (totalWidth / imageWidth) * (baseSpeed / 10);
+
     gsap.to(track, {
-        x: `-${totalWidth}px`, // Move by exact calculated width
-        duration: speed,
+        x: `-${totalWidth}px`,
+        duration: scaledDuration, // Adjusted dynamically based on width
         ease: "none",
         repeat: -1,
         onRepeat: function () {
-            gsap.set(track, { x: 0, left: "auto" }); // Clean reset to prevent glitches
+            gsap.set(track, { x: 0, left: "auto" });
         }
     });
 }
