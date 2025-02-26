@@ -1,84 +1,139 @@
-const tracks = document.querySelectorAll(".parallax-track"); // Select all parallax tracks
-const numImages = 3; // Number of extra images for looping
-const imageWidth = 1920; // Adjust based on your actual image size
+/************************************************************
+ * A) Shape IDs for each track
+ *    track1 has two shapes. The others have just one for demo.
+ ************************************************************/
 
-gsap.defaults({ force3D: true });
-
-
-
-
-
-function duplicateImages(track, applyGap = false, gapSize = 200) {
-    const originalImages = Array.from(track.querySelectorAll("img"));
-    const totalImages = originalImages.length * (numImages + 1);
-
-    // Enable flexbox gap if needed
-    if (applyGap) {
-        track.style.display = "flex"; // Ensure flexbox
-        track.style.gap = `${gapSize}px`; // Apply gap dynamically
+const trackShapes = {
+    track1: ["shapeATrack1", "shapeBTrack1"],
+    track2: ["shapeATrack2", "shapeBTrack2"],
+    track3: ["shapeATrack3", "shapeBTrack3"],
+   track4: ["shapeATrack4", "shapeBTrack4"],
+   // track5: ["shapeATrack5", "shapeBTrack5"]
+  };
+  
+  /************************************************************
+   * B) Define color arrays for each track (optional)
+   *    If you want random color picking, keep this; 
+   *    otherwise skip coloring entirely.
+   ************************************************************/
+  const trackColors = {
+    track1: ["red", "green"],
+    track2: [],
+    track3: ["orange", "purple"],
+    track4: ["#AAF0D1", "#89CFF0"],   // mint / babyblue
+    track5: ["#800020", "chartreuse"] // burgundy / chartreuse
+  };
+  
+  /************************************************************
+   * C) spawnSmokeStack function 
+   *    Picks a random shape ID from that track, clones it, 
+   *    optionally random-colors it, and animates left.
+   ************************************************************/
+  /**
+   * spawnSmokeStack()
+   * 
+   * Spawns one shape from the track's array at random. 
+   * You can optionally pass an array of Y-positions (yOffsets).
+   * If yOffsets is provided, we pick the offset at the same index
+   * as the chosen shape.
+   * 
+   * @param {SVGElement} svgRoot - e.g. track1Svg
+   * @param {number} scaleFactor - scale the shape
+   * @param {number} speedSec    - how many seconds to cross
+   * @param {Array<number>} yOffsets - optional array of Y positions,
+   *                                   in same order as shape IDs.
+   */
+  function spawnSmokeStack(svgRoot, scaleFactor, speedSec, yOffsets = []) {
+    // 1) Identify the track, e.g. "track1Svg" => "track1"
+    const trackId = svgRoot.getAttribute("id");
+    const shortId = trackId.replace("Svg", "");
+  
+    // 2) Which shapes does this track have?
+    const possibleShapes = trackShapes[shortId] || [];
+    if (!possibleShapes.length) {
+      console.warn("No shapes found for track:", shortId);
+      return;
     }
-
-    track.style.width = `${totalImages * (imageWidth + (applyGap ? gapSize : 0))}px`;
-
-    originalImages.forEach(img => {
-        for (let i = 0; i < numImages; i++) {
-            let clonedImg = img.cloneNode(true);
-            track.appendChild(clonedImg);
-        }
+  
+    // 3) Pick one shape at random
+    const shapeIndex = Math.floor(Math.random() * possibleShapes.length);
+    const randomShapeId = possibleShapes[shapeIndex];
+  
+    // 4) Grab that shape <g>
+    const template = document.getElementById(randomShapeId);
+    if (!template) {
+      console.warn("No template found for ID:", randomShapeId);
+      return;
+    }
+  
+    // 5) Clone the shape
+    const newStack = template.cloneNode(true);
+    newStack.removeAttribute("id"); // avoid duplicate IDs in the DOM
+  
+    // 6) Append to the <svg>
+    svgRoot.appendChild(newStack);
+  
+    // 7) Apply random color (if using trackColors)
+    // const colors = trackColors[shortId] || ["#000"];
+    // const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    // newStack.querySelectorAll("path").forEach(path => {
+    //   path.setAttribute("fill", randomColor);
+    // });
+  
+    // 8) Figure out which Y offset to use
+    //    If yOffsets[shapeIndex] exists, use it; else fallback to 200.
+    const yPos = (yOffsets[shapeIndex] !== undefined) 
+      ? yOffsets[shapeIndex] 
+      : 200;
+  
+    // 9) Position & animate
+    gsap.set(newStack, {
+      x: 2000,
+      y: yPos,
+      scale: scaleFactor,
+      transformOrigin: "top left"
     });
-}
-
-
-
-
-
-// Normal tracks (no gaps)
-duplicateImages(document.querySelector(".track1"));
-duplicateImages(document.querySelector(".track2"));
-duplicateImages(document.querySelector(".track3"));
-duplicateImages(document.querySelector(".track4"));
-
-// Extreme stress test: 10,000px gap (should now work flawlessly)
-duplicateImages(document.querySelector(".track5"), true, 10000);
-
-
-
-
-// Optimized GSAP Parallax Function for Smooth Infinite Looping
-function startParallaxScroll(track, baseSpeed, applyGap = false, gapSize = 0) {
-    const originalImages = track.querySelectorAll("img").length / (numImages + 1) || 1; // Ensure valid count
-    const totalImageWidth = imageWidth + (applyGap ? gapSize : 0);
-    const totalWidth = originalImages * totalImageWidth * numImages; // Proper loop distance
-
-    // 🔥 Normalize speed so it scales properly across tracks
-    const speedFactor = Math.max(baseSpeed / 10, 0.1); // Prevents extreme durations
-    const scaledDuration = (totalWidth / (speedFactor * 10)); // Balanced duration
-
-    gsap.to(track, {
-        xPercent: (-totalWidth / track.offsetWidth) * 100, // Convert pixels to percentage
-        duration: scaledDuration, // Adjusted dynamically based on width
-        ease: "none",
-        repeat: -1,
-        onRepeat: function () {
-            gsap.set(track, { x: 0, left: "auto" });
-        }
+  
+    gsap.to(newStack, {
+      x: -300,
+      duration: speedSec,
+      ease: "none",
+      onComplete: () => {
+        newStack.remove();
+      }
     });
-
-    console.log(`Track: ${track.className}, Base Speed: ${baseSpeed}, Duration: ${scaledDuration}, Total Width: ${totalWidth}`);
-}
-
-
-
-
-
-
-
-
-
-
-// Start animations
-startParallaxScroll(document.querySelector(".parallax-track.track1"), 100, false, 0);
-startParallaxScroll(document.querySelector(".parallax-track.track2"), 5, false, 0);
-startParallaxScroll(document.querySelector(".parallax-track.track3"), 250, false, 0);
-startParallaxScroll(document.querySelector(".parallax-track.track4"), 800, false, 0);
-startParallaxScroll(document.querySelector(".parallax-track.track5"), 3500, true, 10000);
+  }
+  
+  /************************************************************
+   * D) Set up intervals for each track (demo)
+   ************************************************************/
+  const track1Svg = document.getElementById("track1Svg");
+  const track2Svg = document.getElementById("track2Svg");
+  const track3Svg = document.getElementById("track3Svg");
+  const track4Svg = document.getElementById("track4Svg");
+  const track5Svg = document.getElementById("track5Svg");
+  
+  // Track 1 => picks randomly between shapeATrack1 + shapeBTrack1
+  //spawnSmokeStack(track1Svg, 1, 1, 150); scale, speed, y value. lower value speeds are faster.
+  
+  setInterval(() => {
+    spawnSmokeStack(track1Svg, 1.0, 1, [0, 700]);
+  }, 6000);
+  
+  // Track 2 => single shape
+  setInterval(() => {
+    spawnSmokeStack(track2Svg, 1.0, 3, [450]);
+  }, 400);
+  
+  setInterval(() => {
+    spawnSmokeStack(track3Svg, 1.2, 6, [320, 175]);
+  }, 4000); //was 7000
+  
+  setInterval(() => {
+    spawnSmokeStack(track4Svg, 1, 10, [0, 200]);
+  }, 2000);
+  
+  setInterval(() => {
+    spawnSmokeStack(track5Svg, 1, 5, 550);
+  }, 9000);
+  

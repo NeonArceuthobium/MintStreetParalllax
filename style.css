@@ -1,48 +1,37 @@
 body {
-  margin: 0;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: black;
-}
-
-.parallax-container {
-  display: flex;
-  white-space: nowrap;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  overflow: hidden;
+  margin: 0; 
+  padding: 0;
+  background: #eee;
+  overflow: hidden; /* avoid scrollbars */
+  height: 100vh;    /* for demo */
   position: relative;
 }
 
-/* Base styling for all layers */
+.parallax-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Each SVG track is absolutely positioned, same top-left corner */
 .parallax-track {
-  display: flex;
-  width: 400vw; /* Large width for looping */
   position: absolute;
   top: 0;
   left: 0;
-  will-change: transform;
-    transform: translate3d(0, 0, 0); /* Forces GPU usage */
-    backface-visibility: hidden;
+  width: 100%;
+  height: 100%;
 }
 
+/* z-index so track1 is on top, track5 behind everything */
+#track1Svg { z-index: 3; }
+#track2Svg { z-index: 2; }
+#track3Svg { z-index: -1; }
+#track4Svg { z-index: -2; }
+#track5Svg { z-index: -3; }
 
+.road {
 
-/* Layer depth settings */
-.track1 { z-index: 1;}
-.track2 { z-index: 2; }
-.track3 { z-index: 3; }
-.track4 { z-index: 4;}
-.track5 { z-index: 5; }
+position: absolute; /* or relative, depending on context */
+top: 770px;
 
-
-/* Ensure images cover the screen */
-.parallax-track img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  flex-shrink: 0;
 }
