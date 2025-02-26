@@ -6,7 +6,7 @@ const trackShapes = {
   track1: ["shapeATrack1", "shapeBTrack1", "shapeCTrack1"],
   track2: ["shapeATrack2", "shapeATrack2", "shapeBTrack2", "shapeBTrack2", "shapeCTrack2"],
   track3: ["shapeATrack3", "shapeATrack3", "shapeBTrack3", "shapeBTrack3", "shapeCTrack3", "shapeDTrack3", "shapeETrack3", "shapeFTrack3"],
-  track4: ["shapeATrack4", "shapeBTrack4", "shapeCTrack4", "shapeDTrack4", "shapeETrack4", "shapeFTrack4", "shapeGTrack4",],
+  track4: ["shapeATrack4", "shapeBTrack4", "shapeCTrack4", "shapeDTrack4", "shapeETrack4", "shapeFTrack4", "shapeGTrack4", "shapeATrack4", "shapeBTrack4", "shapeCTrack4", ],
   // track5: ["shapeATrack5", "shapeBTrack5"]
 };
 
@@ -171,7 +171,7 @@ setInterval(() => {
 }, 2000); // was 7000
 
 setInterval(() => {
-  spawnSmokeStack(track4Svg, .6, 10, [250, 350, 250, 10, 250, 350, 450]);
+  spawnSmokeStack(track4Svg, .6, 10, [250, 350, 250, 10, 250, 350, 450, 250, 340, 250]);
 }, 100);
 
 setInterval(() => {
