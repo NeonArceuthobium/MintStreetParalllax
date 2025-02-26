@@ -5,8 +5,8 @@
 const trackShapes = {
   track1: ["shapeATrack1", "shapeBTrack1", "shapeCTrack1"],
   track2: ["shapeATrack2", "shapeATrack2", "shapeBTrack2", "shapeBTrack2", "shapeCTrack2"],
-  track3: ["shapeATrack3", "shapeATrack3", "shapeBTrack3", "shapeBTrack3", "shapeCTrack3"],
-  track4: ["shapeATrack4", "shapeBTrack4"],
+  track3: ["shapeATrack3", "shapeATrack3", "shapeBTrack3", "shapeBTrack3", "shapeCTrack3", "shapeDTrack3", "shapeETrack3", "shapeFTrack3"],
+  track4: ["shapeATrack4", "shapeBTrack4", "shapeCTrack4", "shapeDTrack4", "shapeETrack4", "shapeFTrack4", "shapeGTrack4",],
   // track5: ["shapeATrack5", "shapeBTrack5"]
 };
 
@@ -167,12 +167,12 @@ setInterval(() => {
 }, 10);
 
 setInterval(() => {
-  spawnSmokeStack(track3Svg, 1.2, 6, [320, 320, 175, 175, 100]);
+  spawnSmokeStack(track3Svg, 1.2, 6, [320, 320, 175, 175, 100, 300, 200, 400]);
 }, 2000); // was 7000
 
 setInterval(() => {
-  spawnSmokeStack(track4Svg, 1, 10, [0, 200]);
-}, 2000);
+  spawnSmokeStack(track4Svg, .6, 10, [250, 350, 250, 10, 250, 350, 450]);
+}, 100);
 
 setInterval(() => {
   spawnSmokeStack(track5Svg, 1, 5, [550]);
@@ -185,12 +185,14 @@ setInterval(() => {
 const rainOverlay = document.querySelector('.rain-overlay');
 const rainSVG = document.querySelector('.rain');
 const lightningFlash = document.querySelector('.lightning-flash');
+
 let isRaining = false;
 
 function toggleRain() {
   isRaining = !isRaining;
   rainOverlay.style.opacity = isRaining ? "1" : "0";
   rainSVG.style.opacity = isRaining ? "1" : "0";
+
 
   if (isRaining) {
     generateRain();
