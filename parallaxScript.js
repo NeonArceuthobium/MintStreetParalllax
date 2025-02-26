@@ -231,7 +231,7 @@ function triggerLightning() {
 }
 
 // Rain cycle every 3 minutes (1.5 min rain, 1.5 min clear)
-setInterval(toggleRain, 90000);
+setInterval(toggleRain, 30000);
 
 // Start rain initially
 toggleRain();
