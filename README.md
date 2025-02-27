@@ -1,14 +1,11 @@
-# web2starter
+# MintStreet Parallax
 
 ## Why?
 
-*Pre created starter files save time setting up new projects.
+A test of making a parallax animation using procedurally generated items that run down the screen at different speeds
 
-## How?
-
-Click on that "Use this template" button to create a new repository you absolute G.
 
 ## Citations
 
-* [Normalize CSS] (https://necolas.github.io/normalize.css/8.0.1/normalize.css)
-* [Google Fonts] (https://fonts.google.com/)
+* [ChatGPT] (https://chatgpt.com/)
+
